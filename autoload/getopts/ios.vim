@@ -5,7 +5,7 @@
 " Options  "{{{1
 
 if !exists('g:clang_complete_getopts_ios_default_options')
-  let g:clang_complete_getopts_ios_default_options = '-fblocks -fobjc-arc -D __IPHONE_OS_VERSION_MIN_REQUIRED=40300'
+  let g:clang_complete_getopts_ios_default_options = '-fblocks -fobjc-arc -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -x objective-c -std=gnu99'
 endif
 
 if !exists('g:clang_complete_getopts_ios_sdk_directory')
@@ -13,7 +13,7 @@ if !exists('g:clang_complete_getopts_ios_sdk_directory')
 endif
 
 if !exists('g:clang_complete_getopts_ios_ignore_directories')
-  let g:clang_complete_getopts_ios_ignore_directories = ["^\.git", "\.xcodeproj"]
+  let g:clang_complete_getopts_ios_ignore_directories = ['^\.git', '\.xcodeproj', '^build', '\.lproj']
 endif
 
 " Public functions "{{{1
@@ -37,7 +37,7 @@ function! s:AddDefaultOptions()
 endfunction
 
 function! s:AddSdkOptions()
-  let b:clang_user_options .= ' -F ' . g:clang_complete_getopts_ios_sdk_directory . '/System/Library/Frameworks'
+  let b:clang_user_options .= ' -F' . g:clang_complete_getopts_ios_sdk_directory . '/System/Library/Frameworks'
   let dirs = s:GetDirectoriesRecursively(g:clang_complete_getopts_ios_sdk_directory . '/usr/include/**')
   call s:AddIncludePathsToUserOptions(dirs)
 endfunction
@@ -45,7 +45,7 @@ endfunction
 function! s:AddPreCompiledHeaders()
   let files = split(glob("**/*.pch"), "\n")
   for file in files
-    let opt = '-include ' . file
+    let opt = '-include "' . file . '"'
     let b:clang_user_options .= ' ' . opt
   endfor
 endfunction
@@ -64,7 +64,7 @@ endfunction
 function! s:AddIncludePathsToUserOptions(dirs)
   let dirs = a:dirs
   for dir in dirs
-    let opt = '-I' . dir
+    let opt = '"-I' . dir . '"'
     let b:clang_user_options .= ' ' . opt
   endfor
 endfunction
