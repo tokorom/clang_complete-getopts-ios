@@ -38,8 +38,6 @@ endfunction
 
 function! s:AddSdkOptions()
   let b:clang_user_options .= ' -F' . g:clang_complete_getopts_ios_sdk_directory . '/System/Library/Frameworks'
-  let dirs = s:GetDirectoriesRecursively(g:clang_complete_getopts_ios_sdk_directory . '/usr/include/**')
-  call s:AddIncludePathsToUserOptions(dirs)
 endfunction
 
 function! s:AddPreCompiledHeaders()
@@ -64,7 +62,7 @@ endfunction
 function! s:AddIncludePathsToUserOptions(dirs)
   let dirs = a:dirs
   for dir in dirs
-    let opt = '"-I' . dir . '"'
+    let opt = '-I"' . dir . '"'
     let b:clang_user_options .= ' ' . opt
   endfor
 endfunction
