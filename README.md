@@ -12,14 +12,14 @@ clang_complete plugin that help iOS programming.
 ## Install with Vundle
 
 ```
-Bundle 'git@github.com:tokorom/clang_complete.git'
+Bundle 'git://github.com/Rip-Rip/clang_complete.git'
 Bundle 'git://github.com/tokorom/clang_complete-getopts-ios.git'
 ```
 
 ## Install with NeoBundle
 
 ```
-NeoBundle 'git@github.com:tokorom/clang_complete.git'
+NeoBundle 'git://github.com/Rip-Rip/clang_complete.git'
 NeoBundle 'git://github.com/tokorom/clang_complete-getopts-ios.git'
 ```
 
